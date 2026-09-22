@@ -158,7 +158,7 @@ export const sponsorOpenSlots = 2;
 
 /* ── Organising team ───────────────────────────────────────────────────── */
 export const team: Person[] = [
-  { name: "Om Pandharinath Jamdar", role: "Overall Coordinator\nIIT Bombay", institution: "", image: null },
+  { name: "Om Pandharinath Jamdar", role: "Overall Coordinator\nIIT Bombay", institution: "", image: "/Om.jpg" },
   { name: "Sandeep Kumar Mishra", role: "Event Coordinator\nIIT Bombay", institution: "", image: "/sandeep.jpeg" },
   {
     name: "Ms. Mukta Shinde",
@@ -187,7 +187,7 @@ export const venue = {
 export const contacts = [
   {
     person: "Dr. Abhishek Tripathi",
-    email: "30007373@iitb.ac.in",
+    email: "20002489@iitb.ac.in",
     phone: "+91 93212 42481",
     institution: "CTIKS, IIT Bombay",
   },

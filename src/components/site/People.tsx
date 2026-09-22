@@ -92,9 +92,9 @@ export function Speakers() {
                 aspect="aspect-[4/5]"
                 label="Speaker photograph"
                 hint="800 × 1000 px"
-                className="h-64 w-full overflow-hidden rounded-lg border-0 bg-muted md:w-64"
-                fit="cover"
-                imageClassName="object-top"
+                className="w-full overflow-hidden rounded-lg border-0 bg-gray-50 md:w-64"
+                fit="contain"
+                imageClassName="object-contain bg-gray-50"
               />
             </div>
             <div className="min-w-0 flex-1">
