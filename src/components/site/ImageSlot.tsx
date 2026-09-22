@@ -11,6 +11,7 @@ interface ImageSlotProps {
   /** Recommended pixel size shown in the empty state. */
   hint?: string;
   className?: string;
+  imageClassName?: string;
   /** "cover" crops to fill; "contain" keeps the whole image (for logos). */
   fit?: "cover" | "contain";
   /** Use a tinted empty state for placement over dark backgrounds. */
@@ -28,6 +29,7 @@ export function ImageSlot({
   label = "Image",
   hint,
   className,
+  imageClassName,
   fit = "cover",
   tone = "light",
 }: ImageSlotProps) {
@@ -38,7 +40,7 @@ export function ImageSlot({
           src={src}
           alt={alt}
           loading="lazy"
-          className={cn("h-full w-full", fit === "cover" ? "object-cover" : "object-contain")}
+          className={cn("w-full h-full", fit === "cover" ? "object-cover" : "object-contain", imageClassName)}
         />
       </div>
     );

@@ -7,7 +7,11 @@ export function Hero() {
       {/* Background: your photograph, or a quiet drafting texture until it is uploaded */}
       <div className="absolute inset-0 -z-10">
         {hero.image ? (
-          <img src={hero.image} alt="" className="h-full w-full object-cover" />
+          <div
+            aria-hidden="true"
+            className="h-full w-full bg-cover bg-center"
+            style={{ backgroundImage: `url(${hero.image})` }}
+          />
         ) : (
           <div
             className="h-full w-full opacity-[0.12]"
@@ -18,7 +22,7 @@ export function Hero() {
             }}
           />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-charcoal/70 to-charcoal/40" />
+        <div className="absolute inset-0 bg-black/60" />
       </div>
 
       <div className="mx-auto max-w-6xl px-5 py-24 md:px-8 md:py-36 lg:py-44">
@@ -58,13 +62,15 @@ export function Hero() {
             href={event.registrationUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center bg-terracotta px-7 py-3.5 text-xs font-semibold tracking-[0.18em] text-ivory uppercase transition-colors hover:bg-terracotta-deep"
+            className="inline-flex items-center bg-terracotta px-7 py-3.5 text-xs font-semibold tracking-[0.18em] text-ivory uppercase transition-colors transition-transform duration-200 hover:scale-105 hover:bg-terracotta-deep"
           >
             Register Now
           </a>
           <a
-            href={event.scheduleUrl}
-            className="inline-flex items-center border border-ivory/50 px-7 py-3.5 text-xs font-semibold tracking-[0.18em] text-ivory uppercase transition-colors hover:border-ivory hover:bg-ivory/10"
+            href="/schedule.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center border border-ivory/50 px-7 py-3.5 text-xs font-semibold tracking-[0.18em] text-ivory uppercase transition-colors transition-transform duration-200 hover:scale-105 hover:border-ivory hover:bg-ivory/10"
           >
             View Schedule
           </a>
@@ -83,7 +89,7 @@ export function Hero() {
 export function InfoBand() {
   const items = [
     { k: "Dates", v: event.dateLabel },
-    { k: "Venue", v: "Seminar Hall, Deccan College" },
+    { k: "Venue", v: "Department of A.I.H.C. and Archaeology, Deccan College P.G.R.I., Pune" },
     { k: "City", v: event.city },
     { k: "Organisers", v: event.organisedByLong },
   ];

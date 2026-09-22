@@ -1,10 +1,9 @@
 import { Mail, Phone, Plus } from "lucide-react";
 import {
-  contact,
+  contacts,
   gallery,
   speakers,
   speakersToBeAnnounced,
-  sponsorOpenSlots,
   sponsors,
   team,
   venue,
@@ -17,22 +16,32 @@ import { Section } from "./Section";
 function PersonCard({ person, photoLabel }: { person: Person; photoLabel: string }) {
   const empty = !person.name;
   return (
-    <article className="group flex flex-col bg-card">
-      <ImageSlot src={person.image} alt={person.name || photoLabel} aspect="aspect-[4/5]" label={photoLabel} hint="800 × 1000 px" />
-      <div className="flex flex-1 flex-col border border-t-0 p-5">
+    <article className="group flex flex-col rounded-none border bg-card p-0">
+      <div className="w-full">
+        <ImageSlot
+          src={person.image}
+          alt={person.name || photoLabel}
+          aspect="aspect-[4/5]"
+          label={photoLabel}
+          hint="800 × 1000 px"
+          className="h-full w-full overflow-hidden rounded-none border-0 bg-muted"
+          fit="cover"
+        />
+      </div>
+      <div className="mt-4 flex w-full flex-col justify-start px-5 pb-5">
         <h3 className={empty ? "font-serif text-2xl font-medium text-muted-foreground" : "font-serif text-2xl leading-tight font-medium"}>
           {person.name || "Name to be added"}
         </h3>
         {(person.role || person.institution) && (
-          <p className="mt-1.5 text-sm text-charcoal-soft">
+          <p className="mt-1.5 whitespace-pre-line text-sm text-charcoal-soft">
             {person.role}
             {person.role && person.institution && <span className="mx-1.5 text-limestone-dark">·</span>}
             {person.institution}
           </p>
         )}
-        {person.bio && <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{person.bio}</p>}
+        {person.bio && <p className="mt-4 whitespace-pre-wrap text-sm leading-relaxed text-gray-600" dangerouslySetInnerHTML={{ __html: person.bio }} />}
         {(person.email || person.phone) && (
-          <ul className="mt-auto space-y-1 pt-4 text-xs text-charcoal-soft">
+          <ul className="mt-4 space-y-1 text-xs text-charcoal-soft">
             {person.email && (
               <li className="flex items-center gap-2">
                 <Mail className="size-3.5" />
@@ -72,10 +81,34 @@ function AddSlot({ label, aspect = "aspect-[4/5]" }: { label: string; aspect?: s
 
 export function Speakers() {
   return (
-    <Section id="speakers" eyebrow="Speakers" title="Invited Speakers" intro="Speaker details will be updated as they are confirmed.">
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <Section id="speakers" eyebrow="Speakers" title="Invited Speakers">
+      <div className="flex flex-col space-y-12">
         {speakers.map((s) => (
-          <PersonCard key={s.name} person={s} photoLabel="Speaker photograph" />
+          <div key={s.name} className="flex flex-col gap-8 md:flex-row">
+            <div className="w-full shrink-0 md:w-64">
+              <ImageSlot
+                src={s.image}
+                alt={s.name}
+                aspect="aspect-[4/5]"
+                label="Speaker photograph"
+                hint="800 × 1000 px"
+                className="h-64 w-full overflow-hidden rounded-lg border-0 bg-muted md:w-64"
+                fit="cover"
+                imageClassName="object-top"
+              />
+            </div>
+            <div className="min-w-0 flex-1">
+              <h3 className="font-serif text-2xl leading-tight font-medium">{s.name}</h3>
+              {(s.role || s.institution) && (
+                <p className="mt-1.5 text-sm text-charcoal-soft">
+                  {s.role}
+                  {s.role && s.institution && <span className="mx-1.5 text-limestone-dark">·</span>}
+                  {s.institution}
+                </p>
+              )}
+              {s.bio && <p className="mt-4 whitespace-pre-wrap text-sm leading-relaxed text-gray-600" dangerouslySetInnerHTML={{ __html: s.bio }} />}
+            </div>
+          </div>
         ))}
         {Array.from({ length: speakersToBeAnnounced }).map((_, i) => (
           <AddSlot key={i} label="Add speaker" />
@@ -87,27 +120,23 @@ export function Speakers() {
 
 export function Sponsors() {
   return (
-    <Section id="sponsors" eyebrow="Support" title="Sponsored by" className="texture-plaster border-y" align="center">
-      <div className="mx-auto grid max-w-4xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <Section
+      id="sponsors"
+      eyebrow="Support"
+      title="Sponsored by"
+      className="texture-plaster border-y"
+      contentClassName="flex flex-col md:flex-row items-center justify-center md:justify-around gap-8 w-full max-w-5xl mx-auto"
+      align="center"
+    >
+      <div className="mx-auto flex max-w-4xl justify-center">
         {sponsors.map((s) => (
-          <a
+          <div
             key={s.name}
-            href={s.url}
-            target={s.url ? "_blank" : undefined}
-            rel="noreferrer"
-            className="flex flex-col items-center bg-card p-8 text-center"
+            className="flex w-full max-w-md flex-col items-center justify-center bg-card p-8 text-center"
           >
-            <ImageSlot src={s.logo} alt={s.name} aspect="aspect-[3/1]" fit="contain" label="Sponsor logo" hint="Original ratio" className="w-full max-w-56 border-0 bg-transparent" />
+            <img src="/logos/vertiv.png" alt="Vertiv Energy Private Limited Logo" className="mx-auto h-48 md:h-64 lg:h-72 w-auto object-contain" />
             <h3 className="mt-6 font-serif text-2xl font-medium">{s.name}</h3>
             {s.tagline && <p className="mt-1 text-xs tracking-[0.18em] text-terracotta-deep uppercase">{s.tagline}</p>}
-          </a>
-        ))}
-        {Array.from({ length: sponsorOpenSlots }).map((_, i) => (
-          <div key={i} className="flex flex-col items-center justify-center border border-dashed border-limestone-dark p-8 text-center text-muted-foreground">
-            <span className="flex size-10 items-center justify-center rounded-full border border-current">
-              <Plus className="size-4" />
-            </span>
-            <p className="mt-4 text-[0.65rem] tracking-[0.2em] uppercase">Sponsor slot</p>
           </div>
         ))}
       </div>
@@ -118,9 +147,31 @@ export function Sponsors() {
 export function Team() {
   return (
     <Section id="team" eyebrow="People" title="Organising Team">
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {team.map((m, i) => (
-          <PersonCard key={m.name || i} person={m} photoLabel="Photograph" />
+          <article key={m.name || i} className="flex flex-col overflow-hidden border bg-card">
+            <div className="w-full">
+              <ImageSlot
+                src={m.image}
+                alt={m.name || "Photograph"}
+                aspect="aspect-[4/5]"
+                label="Photograph"
+                hint="800 × 1000 px"
+                className="h-full w-full overflow-hidden border-0 bg-muted"
+                fit="cover"
+              />
+            </div>
+            <div className="mt-4 flex w-full flex-col px-5 pb-5">
+              <h3 className="font-serif text-2xl leading-tight font-medium">{m.name || "Name to be added"}</h3>
+              {(m.role || m.institution) && (
+                <p className="mt-1.5 text-sm text-charcoal-soft">
+                  {m.role}
+                  {m.role && m.institution && <span className="mx-1.5 text-limestone-dark">·</span>}
+                  {m.institution}
+                </p>
+              )}
+            </div>
+          </article>
         ))}
       </div>
     </Section>
@@ -148,13 +199,20 @@ export function Venue() {
             Open in Google Maps
           </a>
           <div className="mt-10">
-            <ImageSlot src={venue.image} alt="Deccan College" aspect="aspect-[4/3]" label="Venue photograph" hint="1600 × 1200 px" />
+            <ImageSlot
+              src={venue.image}
+              alt="Department of A.I.H.C. and Archaeology, Deccan College P.G.R.I., Pune"
+              aspect="aspect-[4/3]"
+              label="Venue photograph"
+              hint="1600 × 1200 px"
+              imageClassName="object-center rounded-lg"
+            />
           </div>
         </div>
         <div className="lg:col-span-8">
           <div className="aspect-[4/3] w-full overflow-hidden border bg-card lg:h-full lg:aspect-auto">
             <iframe
-              title="Map — Deccan College, Pune"
+              title="Map — Department of A.I.H.C. and Archaeology, Deccan College P.G.R.I., Pune"
               src={venue.mapEmbedUrl}
               className="h-full min-h-96 w-full grayscale-[35%] sepia-[15%]"
               loading="lazy"
@@ -169,28 +227,34 @@ export function Venue() {
 }
 
 export function Contact() {
-  const rows = [
-    { k: "Contact person", v: contact.person },
-    { k: "Email", v: contact.email, href: contact.email ? `mailto:${contact.email}` : undefined },
-    { k: "Phone", v: contact.phone, href: contact.phone ? `tel:${contact.phone}` : undefined },
-    { k: "Institution", v: contact.institution },
-  ];
   return (
     <Section id="contact" eyebrow="Get in touch" title="Contact Us">
-      <dl className="max-w-2xl divide-y border-y">
-        {rows.map((r) => (
-          <div key={r.k} className="grid gap-1 py-5 sm:grid-cols-3">
-            <dt className="eyebrow sm:pt-1">{r.k}</dt>
-            <dd className="sm:col-span-2 font-serif text-xl">
-              {r.v ? (
-                r.href ? <a href={r.href} className="hover:text-terracotta">{r.v}</a> : r.v
-              ) : (
-                <span className="text-muted-foreground/60">— to be added —</span>
-              )}
-            </dd>
-          </div>
+      <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
+        {contacts.map((person) => (
+          <dl key={person.person} className="divide-y border-y">
+            <div className="grid gap-1 py-5 sm:grid-cols-3">
+              <dt className="eyebrow sm:pt-1">Contact person</dt>
+              <dd className="font-serif text-xl sm:col-span-2">{person.person}</dd>
+            </div>
+            <div className="grid gap-1 py-5 sm:grid-cols-3">
+              <dt className="eyebrow sm:pt-1">Email</dt>
+              <dd className="font-serif text-xl sm:col-span-2">
+                <a href={`mailto:${person.email}`} className="break-words hover:text-terracotta">{person.email}</a>
+              </dd>
+            </div>
+            <div className="grid gap-1 py-5 sm:grid-cols-3">
+              <dt className="eyebrow sm:pt-1">Phone</dt>
+              <dd className="font-serif text-xl sm:col-span-2">
+                <a href={`tel:${person.phone}`} className="hover:text-terracotta">{person.phone}</a>
+              </dd>
+            </div>
+            <div className="grid gap-1 py-5 sm:grid-cols-3">
+              <dt className="eyebrow sm:pt-1">Institution</dt>
+              <dd className="font-serif text-xl sm:col-span-2">{person.institution}</dd>
+            </div>
+          </dl>
         ))}
-      </dl>
+      </div>
     </Section>
   );
 }
@@ -201,7 +265,13 @@ export function Gallery() {
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
         {gallery.map((g, i) => (
           <figure key={i}>
-            <ImageSlot src={g.src} alt={g.caption || `Gallery image ${i + 1}`} aspect="aspect-[4/3]" label={`Photo ${i + 1}`} />
+            <ImageSlot
+              src={g.src}
+              alt={g.caption || `Gallery image ${i + 1}`}
+              aspect="aspect-[4/3]"
+              label={`Photo ${i + 1}`}
+              imageClassName="object-center"
+            />
             {g.caption && <figcaption className="mt-2 text-xs text-muted-foreground">{g.caption}</figcaption>}
           </figure>
         ))}

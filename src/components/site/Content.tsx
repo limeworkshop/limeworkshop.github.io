@@ -21,8 +21,16 @@ export function About() {
             </p>
           ))}
         </div>
-        <figure className="lg:col-span-5">
-          <ImageSlot src={about.image} alt="Workshop" aspect="aspect-[4/5]" label="Workshop image" hint="1200 × 1500 px" />
+        <figure className="h-full w-full lg:col-span-5">
+          <ImageSlot
+            src={about.image}
+            alt="Workshop"
+            aspect=""
+            label="Workshop image"
+            hint="1200 × 1500 px"
+            className="h-full w-full"
+            imageClassName="w-full h-full object-cover object-center rounded-lg shadow-sm"
+          />
           {about.imageCaption && (
             <figcaption className="mt-3 text-xs tracking-wide text-muted-foreground">{about.imageCaption}</figcaption>
           )}
@@ -77,25 +85,21 @@ export function Practicals() {
         {practicals.map((p, i) => (
           <article key={p.title} className="grid items-center gap-8 lg:grid-cols-12 lg:gap-14">
             <div className={i % 2 === 0 ? "lg:col-span-7" : "lg:col-span-7 lg:order-2"}>
-              <ImageSlot src={p.image} alt={p.title} aspect="aspect-[16/10]" label={`${p.title} photograph`} hint="1920 × 1200 px" />
+              <ImageSlot
+                src={p.image}
+                alt={p.title}
+                aspect="aspect-[16/10]"
+                label={`${p.title} photograph`}
+                hint="1920 × 1200 px"
+                imageClassName={p.title === "Fine Plaster" || p.title === "Coarse Plaster" ? "object-center" : undefined}
+              />
             </div>
             <div className={i % 2 === 0 ? "lg:col-span-5" : "lg:col-span-5 lg:order-1"}>
-              <p className="eyebrow">Session {String(i + 1).padStart(2, "0")}</p>
               <h3 className="mt-3 font-serif text-4xl font-medium">{p.title}</h3>
               <p className="mt-4 text-base leading-relaxed text-charcoal-soft md:text-lg">{p.text}</p>
             </div>
           </article>
         ))}
-        {/* Reserved space for additional activities — add entries to `practicals` in src/data/site.ts */}
-        <div className="grid items-center gap-8 border border-dashed border-limestone-dark p-6 lg:grid-cols-12 lg:gap-14">
-          <div className="lg:col-span-7">
-            <ImageSlot src={null} alt="" aspect="aspect-[16/10]" label="Additional activity" hint="Add in src/data/site.ts" />
-          </div>
-          <div className="lg:col-span-5">
-            <p className="eyebrow">Further sessions</p>
-            <h3 className="mt-3 font-serif text-3xl font-medium text-muted-foreground">To be announced</h3>
-          </div>
-        </div>
       </div>
     </Section>
   );

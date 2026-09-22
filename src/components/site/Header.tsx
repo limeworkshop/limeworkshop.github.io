@@ -5,9 +5,9 @@ import { ImageSlot } from "./ImageSlot";
 import { cn } from "@/lib/utils";
 
 function LogoTile({ name, logo, url, size }: { name: string; logo: string | null; url?: string | undefined; size: "lg" | "sm" }) {
-  const box = size === "lg" ? "h-14 w-28 md:h-20 md:w-40" : "h-10 w-20 md:h-12 md:w-28";
+  const box = size === "lg" ? "h-auto w-auto" : "h-auto w-auto";
   const content = logo ? (
-    <img src={logo} alt={name} className="h-full w-full object-contain" />
+    <img src={logo} alt={name} className={size === "lg" ? "h-28 w-auto object-contain md:h-32" : "h-16 w-auto object-contain md:h-20"} />
   ) : (
     <ImageSlot src={null} alt={name} label={name} className="h-full w-full" aspect="" fit="contain" />
   );
@@ -33,8 +33,8 @@ export function BrandingBar() {
           ))}
         </div>
         {sponsors.length > 0 && (
-          <div className="flex items-center gap-3 md:border-l md:pl-8">
-            <span className="text-[0.6rem] tracking-[0.2em] text-muted-foreground uppercase">Supported by</span>
+          <div className="flex items-center gap-3 self-center py-0 md:border-l md:pl-8">
+            <span className="text-[0.6rem] tracking-[0.2em] text-muted-foreground uppercase leading-none">Supported by</span>
             {sponsors.map((s) => (
               <LogoTile key={s.name} name={s.name} logo={s.logo} url={s.url} size="sm" />
             ))}
@@ -74,7 +74,7 @@ export function Nav() {
             <li key={item.href}>
               <a
                 href={item.href}
-                className="block px-3.5 py-4 text-[0.72rem] font-medium tracking-[0.16em] text-ivory/80 uppercase transition-colors hover:text-ivory lg:px-4"
+                className="block px-3.5 py-4 text-[0.72rem] font-medium tracking-[0.16em] text-ivory/80 uppercase transition-colors transition-transform duration-200 hover:scale-105 hover:text-ivory lg:px-4"
               >
                 {item.label}
               </a>
@@ -85,7 +85,7 @@ export function Nav() {
           href={event.registrationUrl}
           target="_blank"
           rel="noreferrer"
-          className="hidden bg-terracotta px-5 py-2 text-[0.72rem] font-semibold tracking-[0.16em] text-ivory uppercase transition-colors hover:bg-terracotta-deep md:inline-block"
+          className="hidden bg-terracotta px-5 py-2 text-[0.72rem] font-semibold tracking-[0.16em] text-ivory uppercase transition-colors transition-transform duration-200 hover:scale-105 hover:bg-terracotta-deep md:inline-block"
         >
           Register
         </a>
@@ -107,7 +107,7 @@ export function Nav() {
                 <a
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="block border-b border-ivory/10 py-3 text-sm tracking-[0.14em] text-ivory/85 uppercase"
+                  className="block border-b border-ivory/10 py-3 text-sm tracking-[0.14em] text-ivory/85 uppercase transition-transform duration-200 hover:scale-105"
                 >
                   {item.label}
                 </a>
@@ -118,7 +118,7 @@ export function Nav() {
                 href={event.registrationUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="block bg-terracotta py-3 text-center text-xs font-semibold tracking-[0.16em] text-ivory uppercase"
+                className="block bg-terracotta py-3 text-center text-xs font-semibold tracking-[0.16em] text-ivory uppercase transition-transform duration-200 hover:scale-105"
               >
                 Register Now
               </a>
