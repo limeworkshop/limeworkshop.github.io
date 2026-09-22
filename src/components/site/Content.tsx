@@ -82,7 +82,7 @@ export function Practicals() {
       intro="Practical sessions accompany the lectures, connecting theoretical knowledge with traditional construction practice."
     >
       <div className="mt-10 mb-12 grid grid-cols-1 gap-x-12 gap-y-2 text-left text-lg text-gray-700 sm:text-xl md:grid-cols-2">
-        <ol className="list-inside list-decimal space-y-3">
+        <ul className="list-disc list-outside ml-6 space-y-3 marker:text-stone-500">
           <li>Understanding Lime &amp; Its Benefits</li>
           <li>Lime Sources &amp; Types</li>
           <li>Quicklime Slaking &amp; Lime Putty Preparation</li>
@@ -91,8 +91,8 @@ export function Practicals() {
           <li>Traditional Organic Additives</li>
           <li>Natural Colours &amp; Mineral Pigments</li>
           <li>Traditional Lime Mortar Preparation</li>
-        </ol>
-        <ol start={9} className="list-inside list-decimal space-y-3">
+        </ul>
+        <ul className="list-disc list-outside ml-6 space-y-3 marker:text-stone-500">
           <li>Traditional Lime Plaster Preparation</li>
           <li>Fine Lime Plaster Preparation</li>
           <li>Hands-on Lime Application</li>
@@ -101,7 +101,7 @@ export function Practicals() {
           <li>Visual Assessment of Traditional Lime Work</li>
           <li>Deterioration of Lime-Based Materials</li>
           <li>Traditional Lime Conservation &amp; Repair</li>
-        </ol>
+        </ul>
       </div>
       <div className="space-y-16">
         {practicals.map((p, i) => (
