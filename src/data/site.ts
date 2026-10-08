@@ -174,8 +174,8 @@ export const team: Person[] = [
 
 /* ── Venue ─────────────────────────────────────────────────────────────── */
 export const venue = {
-  name: "Deccan College P.G.R.I., Pune",
-  hall: "Department of A.I.H.C. and Archaeology",
+  name: "Department of A.I.H.C. and Archaeology",
+  hall: "DECCAN COLLEGE P.G.R.I., PUNE",
   addressLines: ["GVXC+2HR, Deccan College Rd, Yerawada, Pune, Maharashtra 411006, India"],
   mapEmbedUrl:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1101.4257373161145!2d73.8704677514608!3d18.547675733646688!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c0eea7e90885%3A0xa9c9ea11ad4d39b7!2sDepartment%20of%20Ancient%20Indian%20History%2C%20Culture%20and%20Archaeology!5e0!3m2!1sen!2sus!4v1790056832869!5m2!1sen!2sus",
